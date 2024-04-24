@@ -64,29 +64,19 @@ namespace RATServer
                         return;
                     }
                     Command c = DeserializeFromXml<Command>(Encoding.ASCII.GetString(message, 0, bytesRead));
-                    ExecuteCommand(c.CMD, c.Args);
+                    switch (c.CMD)
+                    {
+                        case "message":
+                            Functions.Message(c.Args[0]);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (Exception e)
                 {
                     Check();
                 }
-            }
-        }
-        static void ExecuteCommand(string CMD, string[] Args)
-        {
-            try
-            {
-                switch (CMD)
-                {
-                    case "message":
-                        Console.WriteLine(Args[0]);
-                        break;
-                    default:
-                        break;
-                }
-            } catch (Exception ex) 
-            { 
-
             }
         }
     }
