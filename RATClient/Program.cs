@@ -43,11 +43,7 @@ namespace RATClient
                     case "delete":
                     case "download":
                     case "shutdown":
-                        if (sock.Connected == false) 
-                        {
-                            Console.WriteLine("Need To Be Connected To Use This Command.");
-                            break;
-                        }
+                        if (!ConnectCheck()) break;
                         SendCommand(CMDS);
                         break;
                     case "help":
@@ -120,6 +116,11 @@ namespace RATClient
         }
         #endregion
         #region "Helper Methods"
+        static bool ConnectCheck()
+        {
+            if (!sock.Connected) Console.WriteLine("Need To Be Connected To Use This Command.");
+            return sock.Connected;
+        }
         static void Help()
         {
             Console.WriteLine("CONNECT        Start A Connection");
