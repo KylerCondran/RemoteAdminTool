@@ -119,7 +119,7 @@ namespace RATClient
             bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
             if (bytesRead == 0) return;
             Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
-            Console.WriteLine(r.Msg);
+            if (r.Type == "Message") { Console.WriteLine(r.Msg); }
         }
     }
     [Serializable]
@@ -131,6 +131,7 @@ namespace RATClient
     [Serializable]
     public class Response
     {
+        public string Type { get; set; }
         public string Msg { get; set; }
         public byte[] Data { get; set; }
     }
