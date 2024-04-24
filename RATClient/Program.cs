@@ -14,8 +14,6 @@ namespace RATClient
     {
         #region "Declarations"
         static TcpClient sock = new TcpClient();
-        static IPAddress ip = IPAddress.Parse("127.0.0.1");
-        static int port = 6961;
         #endregion
         #region "Main"
         static void Main(string[] args)
@@ -32,7 +30,7 @@ namespace RATClient
                 switch (CMDS[0].ToLower())
                 {
                     case "connect":
-                        Connect();
+                        Connect(CMDS[1]);
                         break;
                     case "disconnect":
                         EndConnection();
@@ -67,22 +65,30 @@ namespace RATClient
         {
             if (sock.Connected) { sock.Close(); }
         }
-        static void Connect()
+        static void Connect(string Dest)
         {
-            ip = IPAddress.Parse("127.0.0.1");
-            port = 6961;
-            try
+            if (sock.Connected == false) {
+                string[] IPInfo = Dest.Split(':');
+                IPAddress ip = IPAddress.Parse(IPInfo[0]);
+                int port = 0;
+                int.TryParse(IPInfo[1], out port);
+                try
+                {
+                    sock = new TcpClient();
+                    sock.Connect(ip, port);
+                    Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString());
+                }
+                catch (Exception e)
+                {
+                    //if (My.Computer.Network.Ping(""))
+                    //{
+                    Console.WriteLine("Error: The server RAT is not opened.");
+                    Console.WriteLine("Error: An internet connection cannot be established.");
+                    //}
+                }
+            } else
             {
-                sock = new TcpClient();
-                sock.Connect(ip, port);
-                Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString());
-            } catch (Exception e)
-            {
-                //if (My.Computer.Network.Ping(""))
-                //{
-                Console.WriteLine("Error: The server RAT is not opened.");
-                Console.WriteLine("Error: An internet connection cannot be established.");
-                //}
+                Console.WriteLine("Already Connected - Disconnect First");
             }
         }
         static void SendCommand(string[] CMDS)
