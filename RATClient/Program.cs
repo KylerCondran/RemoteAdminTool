@@ -77,6 +77,16 @@ namespace RATClient
             Console.WriteLine("DISCONNECT     End A Connection");
             Console.WriteLine("HELP           List Commands");
         }
+        static T DeserializeFromXml<T>(string xml)
+        {
+            T z;
+            XmlSerializer x = new XmlSerializer(typeof(T));
+            using (TextReader y = new StringReader(xml))
+            {
+                z = (T)x.Deserialize(y);
+            }
+            return z;
+        }
         static string SerializeToXml<T>(T obj)
         {
             XmlSerializer x = new XmlSerializer(typeof(T));
@@ -104,6 +114,12 @@ namespace RATClient
             Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
             nstream.Write(sendBytes, 0, sendBytes.Length);
             nstream.Flush();
+            byte[] message = new byte[sock.ReceiveBufferSize + 1];
+            int bytesRead = 0;           
+            bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+            if (bytesRead == 0) return;
+            Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
+            Console.WriteLine(r.Msg);
         }
     }
     [Serializable]
@@ -111,5 +127,11 @@ namespace RATClient
     {
         public string CMD { get; set; }
         public string[] Args { get; set; }
+    }
+    [Serializable]
+    public class Response
+    {
+        public string Msg { get; set; }
+        public byte[] Data { get; set; }
     }
 }
