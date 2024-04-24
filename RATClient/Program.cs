@@ -18,9 +18,8 @@ namespace RATClient
         #region "Main"
         static void Main(string[] args)
         {
-            string CMD = "";          
-            Console.WriteLine("Remote Administration Tool");
-            Console.WriteLine("Type HELP For A List Of Commands");
+            string CMD = "";
+            StartInfo();
             Console.WriteLine("");
             while (true)
             {
@@ -45,6 +44,10 @@ namespace RATClient
                     case "shutdown":
                         if (!ConnectCheck()) break;
                         SendCommand(CMDS);
+                        break;
+                    case "clear":
+                        Console.Clear();
+                        StartInfo();
                         break;
                     case "help":
                         Help();
@@ -116,6 +119,11 @@ namespace RATClient
         }
         #endregion
         #region "Helper Methods"
+        static void StartInfo()
+        {
+            Console.WriteLine("Remote Administration Tool");
+            Console.WriteLine("Type HELP For A List Of Commands");
+        }
         static bool ConnectCheck()
         {
             if (!sock.Connected) Console.WriteLine("Need To Be Connected To Use This Command.");
@@ -128,6 +136,7 @@ namespace RATClient
             Console.WriteLine("DISCONNECT     End A Connection");
             Console.WriteLine("PROCESSES      Return A List Of Running Processes");
             Console.WriteLine("DELETE         Delete A File On The Server");
+            Console.WriteLine("CLEAR          Clear The Screen");
             Console.WriteLine("DOWNLOAD       Download A File To The Server");
             Console.WriteLine("SHUTDOWN       Shutdown The Server");
             Console.WriteLine("EXIT           Quit The Program");
