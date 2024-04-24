@@ -18,7 +18,7 @@ namespace RATClient
         #region "Main"
         static void Main(string[] args)
         {
-            string CMD = "";
+            string CMD;
             StartInfo();
             Console.WriteLine("");
             while (true)
