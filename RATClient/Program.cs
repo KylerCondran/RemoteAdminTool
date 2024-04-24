@@ -46,6 +46,9 @@ namespace RATClient
                     case "help":
                         Help();
                         break;
+                    case "exit":
+                        Environment.Exit(0);
+                        break;
                     default:
                         Console.WriteLine("Invalid Command.");
                         break;
@@ -107,6 +110,7 @@ namespace RATClient
             Console.WriteLine("CONNECT        Start A Connection");
             Console.WriteLine("MESSAGE        Send A Message To The Server");
             Console.WriteLine("DISCONNECT     End A Connection");
+            Console.WriteLine("EXIT           Quit The Program");
             Console.WriteLine("RUN            Run A Program");
             Console.WriteLine("HELP           List Commands");
         }
