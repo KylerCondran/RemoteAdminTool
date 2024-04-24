@@ -36,6 +36,7 @@ namespace RATClient
                         break;
                     case "disconnect":
                         EndConnection();
+                        Console.WriteLine("RAT Client: Not Connected");
                         break;
                     case "message":
                     case "run":
@@ -50,6 +51,7 @@ namespace RATClient
                         Help();
                         break;
                     case "exit":
+                        EndConnection();
                         Environment.Exit(0);
                         break;
                     default:
@@ -63,8 +65,7 @@ namespace RATClient
         #region "Connection Methods"
         static void EndConnection()
         {
-            sock.Close();
-            Console.WriteLine("RAT Client: Not Connected");
+            if (sock.Connected) { sock.Close(); }
         }
         static void Connect()
         {
