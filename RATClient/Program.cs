@@ -12,9 +12,12 @@ namespace RATClient
 {
     public class Program
     {
+        #region "Declarations"
         static TcpClient sock = new TcpClient();
         static IPAddress ip = IPAddress.Parse("127.0.0.1");
         static int port = 6961;
+        #endregion
+        #region "Main"
         static void Main(string[] args)
         {
             string CMD = "";          
@@ -50,6 +53,8 @@ namespace RATClient
                 Console.WriteLine("");
             }
         }
+        #endregion       
+        #region "Connection Methods"
         static void EndConnection()
         {
             sock.Close();
@@ -73,6 +78,30 @@ namespace RATClient
                 //}
             }
         }
+        static void SendCommand(string[] CMDS)
+        {
+            Command c = new Command();
+            c.CMD = CMDS[0];
+            int argcount = CMDS.Length - 1;
+            if (argcount != 0)
+            {
+                string[] args = new string[argcount];
+                for (int i = 0; i < argcount; i++) args[i] = CMDS[i + 1];
+                c.Args = args;
+            }
+            NetworkStream nstream = sock.GetStream();
+            Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
+            nstream.Write(sendBytes, 0, sendBytes.Length);
+            nstream.Flush();
+            byte[] message = new byte[sock.ReceiveBufferSize + 1];
+            int bytesRead = 0;           
+            bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+            if (bytesRead == 0) return;
+            Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
+            if (r.Type == "Message") { Console.WriteLine(r.Msg); }
+        }
+        #endregion
+        #region "Helper Methods"
         static void Help()
         {
             Console.WriteLine("CONNECT        Start A Connection");
@@ -103,29 +132,9 @@ namespace RATClient
                 }
             }
         }
-        static void SendCommand(string[] CMDS)
-        {
-            Command c = new Command();
-            c.CMD = CMDS[0];
-            int argcount = CMDS.Length - 1;
-            if (argcount != 0)
-            {
-                string[] args = new string[argcount];
-                for (int i = 0; i < argcount; i++) args[i] = CMDS[i + 1];
-                c.Args = args;
-            }
-            NetworkStream nstream = sock.GetStream();
-            Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
-            nstream.Write(sendBytes, 0, sendBytes.Length);
-            nstream.Flush();
-            byte[] message = new byte[sock.ReceiveBufferSize + 1];
-            int bytesRead = 0;           
-            bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
-            if (bytesRead == 0) return;
-            Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
-            if (r.Type == "Message") { Console.WriteLine(r.Msg); }
-        }
+        #endregion
     }
+    #region "Objects
     [Serializable]
     public class Command
     {
@@ -139,4 +148,5 @@ namespace RATClient
         public string Msg { get; set; }
         public byte[] Data { get; set; }
     }
+    #endregion
 }

@@ -14,9 +14,12 @@ namespace RATServer
 {
     public class Program
     {
+        #region "Declarations"
         static int port = 6961;
         static TcpClient sock = new TcpClient();
         static TcpListener tcpc = new TcpListener(port);
+        #endregion
+        #region "Main"
         static void Main(string[] args)
         {
             Console.WriteLine("Server Running...");
@@ -26,6 +29,8 @@ namespace RATServer
                 while (sock.Connected) Check();
             }
         }
+        #endregion
+        #region "Connection Methods"
         static void Listen()
         {
             try
@@ -36,28 +41,6 @@ namespace RATServer
             } catch (Exception ex) 
             {
 
-            }
-        }
-        static T DeserializeFromXml<T>(string xml)
-        {
-            T z;
-            XmlSerializer x = new XmlSerializer(typeof(T));
-            using (TextReader y = new StringReader(xml))
-            {
-                z = (T)x.Deserialize(y);
-            }
-            return z;
-        }
-        static string SerializeToXml<T>(T obj)
-        {
-            XmlSerializer x = new XmlSerializer(typeof(T));
-            using (var z = new StringWriter())
-            {
-                using (XmlTextWriter w = new XmlTextWriter(z) { Formatting = Formatting.Indented })
-                {
-                    x.Serialize(w, obj);
-                    return z.ToString();
-                }
             }
         }
         static void Check()
@@ -102,7 +85,33 @@ namespace RATServer
                 }
             }
         }
+        #endregion
+        #region "Helper Methods"
+        static T DeserializeFromXml<T>(string xml)
+        {
+            T z;
+            XmlSerializer x = new XmlSerializer(typeof(T));
+            using (TextReader y = new StringReader(xml))
+            {
+                z = (T)x.Deserialize(y);
+            }
+            return z;
+        }
+        static string SerializeToXml<T>(T obj)
+        {
+            XmlSerializer x = new XmlSerializer(typeof(T));
+            using (var z = new StringWriter())
+            {
+                using (XmlTextWriter w = new XmlTextWriter(z) { Formatting = Formatting.Indented })
+                {
+                    x.Serialize(w, obj);
+                    return z.ToString();
+                }
+            }
+        }
+        #endregion
     }
+    #region "Objects  
     [Serializable]
     public class Command
     {
@@ -116,4 +125,5 @@ namespace RATServer
         public string Msg { get; set; }
         public byte[] Data { get; set; }
     }
+    #endregion
 }
