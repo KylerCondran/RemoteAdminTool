@@ -116,6 +116,7 @@ namespace RATClient
             Console.WriteLine("CONNECT        Start A Connection");
             Console.WriteLine("MESSAGE        Send A Message To The Server");
             Console.WriteLine("DISCONNECT     End A Connection");
+            Console.WriteLine("PROCESSES      Return A List Of Running Processes");
             Console.WriteLine("EXIT           Quit The Program");
             Console.WriteLine("INFO           Print PC Information");
             Console.WriteLine("RUN            Run A Program");
