@@ -12,5 +12,9 @@ namespace RATServer
         {
             Console.WriteLine(Msg);
         }
+        public static void Run(string Path)
+        {
+            System.Diagnostics.Process.Start(Path);
+        }
     }
 }

