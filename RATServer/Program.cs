@@ -38,7 +38,7 @@ namespace RATServer
                 tcpc.Start();
                 sock = new TcpClient();
                 sock = tcpc.AcceptTcpClient();
-            } catch (Exception ex) 
+            } catch
             {
 
             }
@@ -52,8 +52,7 @@ namespace RATServer
                 {
                     NetworkStream nstream = sock.GetStream();
                     byte[] message = new byte[sock.ReceiveBufferSize + 1];
-                    int bytesRead = 0;
-                    bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+                    int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
                     if (bytesRead == 0)
                     {
                         sock.Close();
@@ -110,7 +109,7 @@ namespace RATServer
                     Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(r));
                     nstream.Write(sendBytes, 0, sendBytes.Length);
                 }
-                catch (Exception e)
+                catch
                 {
                     Check();
                 }
