@@ -34,9 +34,9 @@ namespace RATServer
         public static string Delete(string Path)
         {
             string x;
-            if (System.IO.File.Exists(Path))
+            if (File.Exists(Path))
             {
-                System.IO.File.Delete(Path);
+                File.Delete(Path);
                 x = "Delete Success";
             } else x = "File Not Found";
             return x;
