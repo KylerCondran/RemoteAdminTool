@@ -133,18 +133,20 @@ namespace RATClient
         }
         static void Help()
         {
-            Console.WriteLine("CONNECT        Start A Connection");
-            Console.WriteLine("MESSAGE        Send A Message To The Server");
-            Console.WriteLine("DISCONNECT     End A Connection");
-            Console.WriteLine("PROCESSES      Return A List Of Running Processes");
-            Console.WriteLine("DELETE         Delete A File On The Server");
             Console.WriteLine("CLEAR          Clear The Screen");
+            Console.WriteLine("CLIPBOARD      Return ClipBoard Text If Present");
+            Console.WriteLine("CONNECT        Start A Connection");
+            Console.WriteLine("DELETE         Delete A File On The Server");
+            Console.WriteLine("DISCONNECT     End A Connection");
             Console.WriteLine("DOWNLOAD       Download A File To The Server");
-            Console.WriteLine("SHUTDOWN       Shutdown The Server");
             Console.WriteLine("EXIT           Quit The Program");
-            Console.WriteLine("INFO           Print PC Information");
-            Console.WriteLine("RUN            Run A Program");
             Console.WriteLine("HELP           List Commands");
+            Console.WriteLine("INFO           Print PC Information");
+            Console.WriteLine("MESSAGE        Send A Message To The Server");
+            Console.WriteLine("PROCESSES      Return A List Of Running Processes");
+            Console.WriteLine("RUN            Run A Program");
+            Console.WriteLine("SENDKEYS       Send Key Presses To The Server");
+            Console.WriteLine("SHUTDOWN       Shutdown The Server");
         }
         static T DeserializeFromXml<T>(string xml)
         {
