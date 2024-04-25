@@ -106,7 +106,7 @@ namespace RATServer
                         default:
                             break;
                     }                 
-                    Byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(r));
+                    byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(r));
                     nstream.Write(sendBytes, 0, sendBytes.Length);
                 }
                 catch
