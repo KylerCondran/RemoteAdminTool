@@ -115,7 +115,11 @@ namespace RATClient
             if (bytesRead == 0) return;
             Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
             if (r.Type == "Message") { Console.WriteLine(r.Msg); }
-            else if (r.Type == "Data") using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);           
+            else if (r.Type == "Data")
+            {
+                using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
+                Console.WriteLine("Done.");
+            }
         }
         #endregion
         #region "Helper Methods"

@@ -63,6 +63,7 @@ namespace RATServer
         }
         public static Response Retrieve(string Dir)
         {
+            //issues with large files
             Response r = new Response();
             r.Type = "Data";
             r.Msg = Path.GetFileName(Dir);
