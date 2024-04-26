@@ -15,7 +15,7 @@ namespace RATServer
     {
         public static void Message(string Msg)
         {
-            Console.WriteLine(Msg);
+            MessageBox.Show(Msg);
         }
         public static void Run(string Path)
         {
