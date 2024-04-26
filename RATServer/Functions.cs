@@ -82,7 +82,8 @@ namespace RATServer
             Process p = new Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = "cmd.exe dir " + Path;
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.Arguments = "/c dir " + Path;
             p.Start();
             string o = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
