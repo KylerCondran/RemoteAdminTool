@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -24,47 +25,47 @@ namespace RATClient
             {
                 Console.Write(serverID + ">");
                 CMD = Console.ReadLine();
-                string[] CMDS = CMD.Split(' ');
-                switch (CMDS[0].ToLower())
+                if (ValidCommand(CMD))
                 {
-                    case "connect":
-                        Connect(CMDS[1]);
-                        break;
-                    case "disconnect":
-                        EndConnection();
-                        Console.WriteLine("RAT Client: Not Connected");
-                        break;
-                    case "message":
-                    case "run":
-                    case "info":
-                    case "processes":
-                    case "delete":
-                    case "download":
-                    case "shutdown":
-                    case "clipboard":
-                    case "sendkeys":
-                    case "services":
-                    case "retrieve":
-                    case "search":
-                    case "software":
-                        if (!ConnectCheck()) break;
-                        SendCommand(CMDS);
-                        break;
-                    case "clear":
-                        Console.Clear();
-                        StartInfo();
-                        break;
-                    case "help":
-                        Help();
-                        break;
-                    case "exit":
-                        EndConnection();
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid Command.");
-                        break;
-                }
+                    string[] CMDS = CMD.Split(' ');
+                    switch (CMDS[0].ToLower())
+                    {
+                        case "connect":
+                            Connect(CMDS[1]);
+                            break;
+                        case "disconnect":
+                            EndConnection();
+                            Console.WriteLine("RAT Client: Not Connected");
+                            break;
+                        case "message":
+                        case "run":
+                        case "info":
+                        case "processes":
+                        case "delete":
+                        case "download":
+                        case "shutdown":
+                        case "clipboard":
+                        case "sendkeys":
+                        case "services":
+                        case "retrieve":
+                        case "search":
+                        case "software":
+                            if (!ConnectCheck()) break;
+                            SendCommand(CMDS);
+                            break;
+                        case "clear":
+                            Console.Clear();
+                            StartInfo();
+                            break;
+                        case "help":
+                            Help();
+                            break;
+                        case "exit":
+                            EndConnection();
+                            Environment.Exit(0);
+                            break;
+                    }
+                } else Console.WriteLine("Invalid Command.");
                 Console.WriteLine("");
             }
         }
@@ -128,6 +129,11 @@ namespace RATClient
         }
         #endregion
         #region "Helper Methods"
+        static bool ValidCommand(string CMD)
+        {
+            Match m = Regex.Match(CMD, "^disconnect$|^info$|^processes$|^shutdown$|^clipboard$|^services$|^software$|^clear$|^help$|^exit$|^connect [0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}:[0-9]{1,5}$|^message .+$|^run .+$|^delete .+$|^sendkeys .+$|^retrieve .+$|^search .+$|^download .+ .+$", RegexOptions.IgnoreCase);
+            return m.Success;
+        }
         static void StartInfo()
         {
             Console.WriteLine("Remote Administration Tool");
