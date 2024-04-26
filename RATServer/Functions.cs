@@ -119,15 +119,22 @@ namespace RATServer
             p.WaitForExit();
             return r;
         }
-        public static byte[] ScreenShot(string Path)
+        public static Response ScreenShot()
         {
             //work in progress
-            return new byte[0];
+            Response r = new Response();
+            r.Type = "Data";
+            //r.Msg = filename;
+            //r.Data = data;
+            return r;
         }
-        public static string Applications()
+        public static Response Applications()
         {
             //work in progress
-            return "";
+            Response r = new Response();
+            r.Type = "Message";
+            r.Msg = "Applications";
+            return r;
         }
     }
 }
