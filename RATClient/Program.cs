@@ -118,8 +118,12 @@ namespace RATClient
             if (r.Type == "Message") { Console.WriteLine(r.Msg); }
             else if (r.Type == "Data")
             {
-                using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
-                Console.WriteLine("Done.");
+                try
+                {
+                    using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
+                    Console.WriteLine("Done.");
+                }
+                catch (Exception e) { Console.WriteLine(e.Message); }   
             }
         }
         #endregion
