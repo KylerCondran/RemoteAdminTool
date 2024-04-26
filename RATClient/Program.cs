@@ -14,6 +14,7 @@ namespace RATClient
     {
         #region "Declarations"
         static TcpClient sock = new TcpClient();
+        static string serverID;       
         #endregion
         #region "Main"
         static void Main(string[] args)
@@ -23,7 +24,7 @@ namespace RATClient
             Console.WriteLine("");
             while (true)
             {
-                Console.Write(">");
+                Console.Write(serverID + ">");
                 CMD = Console.ReadLine();
                 string[] CMDS = CMD.Split(' ');
                 switch (CMDS[0].ToLower())
@@ -72,7 +73,7 @@ namespace RATClient
         #region "Connection Methods"
         static void EndConnection()
         {
-            if (sock.Connected) { sock.Close(); }
+            if (sock.Connected) { sock.Close(); serverID = string.Empty; }
         }
         static void Connect(string Dest)
         {
@@ -84,6 +85,7 @@ namespace RATClient
                 {
                     sock = new TcpClient();
                     sock.Connect(ip, port);
+                    serverID = ip.ToString() + ":" + port.ToString();
                     Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
                 }
                 catch
