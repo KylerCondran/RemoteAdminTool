@@ -37,7 +37,7 @@ namespace RATClient
                             break;
                         case "disconnect":
                             EndConnection();
-                            Console.WriteLine("RAT Client: Not Connected");
+                            Console.WriteLine("Client: Not Connected");
                             break;
                         case "message":
                         case "run":
@@ -92,11 +92,11 @@ namespace RATClient
                     sock = new TcpClient();
                     sock.Connect(ip, port);
                     serverID = ip.ToString() + ":" + port.ToString();
-                    Console.WriteLine("RAT Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
+                    Console.WriteLine("Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
                 }
                 catch
                 {
-                    Console.WriteLine("Error: The Server RAT Is Unreachable.");
+                    Console.WriteLine("Error: The Server Is Unreachable.");
                 }
             } else
             {
@@ -136,7 +136,7 @@ namespace RATClient
                     try
                     {
                         using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
-                        Console.WriteLine("File Received.");
+                        Console.WriteLine(r.Msg + "Received.");
                     }
                     catch (Exception e) { Console.WriteLine(e.Message); }   
                 }
