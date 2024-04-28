@@ -164,28 +164,29 @@ namespace RATClient
         }
         static void Help()
         {            
-            Console.WriteLine("CLEAR          Clear The Screen");
-            Console.WriteLine("CLIPBOARD      Return ClipBoard Text If Present");
-            Console.WriteLine("CONNECT        Start A Connection");
-            Console.WriteLine("DELETE         Delete A File On The Server");
-            Console.WriteLine("DISCONNECT     End A Connection");
-            Console.WriteLine("DOWNLOAD       Download A File To The Server");
-            Console.WriteLine("EXIT           Quit The Program");
-            Console.WriteLine("HELP           List Commands");
-            Console.WriteLine("INFO           List Server Information");
-            Console.WriteLine("LOGOFF         Log Off The Server");
-            Console.WriteLine("MESSAGE        Send A Message To The Server");
-            Console.WriteLine("PROCESSES      List Running Processes");
-            Console.WriteLine("RESTART        Restart The Server");
-            Console.WriteLine("RETRIEVE       Download A File From The Server");
-            Console.WriteLine("RUN            Run A Program");
-            Console.WriteLine("SCREENSHOT     Return A Screenshot From The Server");
-            Console.WriteLine("SEARCH         List The Contents Of A Directory");
-            Console.WriteLine("SENDKEYS       Send Key Presses To The Server");
-            Console.WriteLine("SERVICES       List Running Services");
-            Console.WriteLine("SHUTDOWN       Shutdown The Server");
-            Console.WriteLine("SOFTWARE       List Installed Software");
-            Console.WriteLine("TASKKILL       Kill A Running Process");
+            Console.WriteLine("CLEAR                    Clear The Screen");
+            Console.WriteLine("CONNECT [ip:port]        Start A Connection");
+            Console.WriteLine("DISCONNECT               End A Connection");
+            Console.WriteLine("EXIT                     Quit The Program");
+            Console.WriteLine("HELP                     List Commands");
+            Console.WriteLine("");
+            Console.WriteLine("CLIPBOARD                Return ClipBoard Text If Present");          
+            Console.WriteLine("DELETE [path]            Delete A File On The Server");          
+            Console.WriteLine("DOWNLOAD [url] [path]    Download A File To The Server");           
+            Console.WriteLine("INFO                     List Server Information");
+            Console.WriteLine("LOGOFF                   Log Off The Server");
+            Console.WriteLine("MESSAGE [message]        Send A Message To The Server");
+            Console.WriteLine("PROCESSES                List Running Processes");
+            Console.WriteLine("RESTART                  Restart The Server");
+            Console.WriteLine("RETRIEVE [path]          Download A File From The Server");
+            Console.WriteLine("RUN [path]               Run A Program");
+            Console.WriteLine("SCREENSHOT               Return A Screenshot From The Server");
+            Console.WriteLine("SEARCH [path]            List The Contents Of A Directory");
+            Console.WriteLine("SENDKEYS [keys]          Send Key Presses To The Server");
+            Console.WriteLine("SERVICES                 List Running Services");
+            Console.WriteLine("SHUTDOWN                 Shutdown The Server");
+            Console.WriteLine("SOFTWARE                 List Installed Software");
+            Console.WriteLine("TASKKILL [path]          Kill A Running Process");
         }
         static T DeserializeFromXml<T>(string xml)
         {
