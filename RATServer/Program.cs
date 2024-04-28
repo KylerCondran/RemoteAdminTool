@@ -128,7 +128,7 @@ namespace RATServer
             XmlSerializer x = new XmlSerializer(typeof(T));
             using (var z = new StringWriter())
             {
-                using (XmlTextWriter w = new XmlTextWriter(z) { Formatting = Formatting.Indented })
+                using (XmlTextWriter w = new XmlTextWriter(z) { Formatting = Formatting.None })
                 {
                     x.Serialize(w, obj);
                     return z.ToString();
