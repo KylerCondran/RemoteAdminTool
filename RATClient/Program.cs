@@ -123,7 +123,7 @@ namespace RATClient
                 try
                 {
                     using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
-                    Console.WriteLine("Done.");
+                    Console.WriteLine("File Received.");
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }   
             }
