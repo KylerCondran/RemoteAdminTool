@@ -103,34 +103,40 @@ namespace RATClient
         }
         static void SendCommand(string[] CMDS)
         {
-            Command c = new Command();
-            c.CMD = CMDS[0];
-            int argcount = CMDS.Length - 1;
-            if (argcount != 0)
+            try
             {
-                string[] args = new string[argcount];
-                for (int i = 0; i < argcount; i++) args[i] = CMDS[i + 1];
-                c.Args = args;
-            }
-            NetworkStream nstream = sock.GetStream();
-            byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
-            nstream.Write(sendBytes, 0, sendBytes.Length);
-            nstream.Flush();
-            if (c.CMD == "retrieve" || c.CMD == "screenshot") sock.ReceiveBufferSize = 2097152;
-            else sock.ReceiveBufferSize = 8192;
-            byte[] message = new byte[sock.ReceiveBufferSize + 1];
-            int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
-            if (bytesRead == 0) return;
-            Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
-            if (r.Type == "Message") { Console.WriteLine(r.Msg); }
-            else if (r.Type == "Data")
-            {
-                try
+                Command c = new Command();
+                c.CMD = CMDS[0];
+                int argcount = CMDS.Length - 1;
+                if (argcount != 0)
                 {
-                    using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
-                    Console.WriteLine("File Received.");
+                    string[] args = new string[argcount];
+                    for (int i = 0; i < argcount; i++) args[i] = CMDS[i + 1];
+                    c.Args = args;
                 }
-                catch (Exception e) { Console.WriteLine(e.Message); }   
+                NetworkStream nstream = sock.GetStream();
+                byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
+                nstream.Write(sendBytes, 0, sendBytes.Length);
+                nstream.Flush();
+                if (c.CMD == "retrieve" || c.CMD == "screenshot") sock.ReceiveBufferSize = 2097152;
+                else sock.ReceiveBufferSize = 8192;
+                byte[] message = new byte[sock.ReceiveBufferSize + 1];
+                int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+                if (bytesRead == 0) return;
+                Response r = DeserializeFromXml<Response>(Encoding.ASCII.GetString(message, 0, bytesRead));
+                if (r.Type == "Message") { Console.WriteLine(r.Msg); }
+                else if (r.Type == "Data")
+                {
+                    try
+                    {
+                        using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
+                        Console.WriteLine("File Received.");
+                    }
+                    catch (Exception e) { Console.WriteLine(e.Message); }   
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
         #endregion
