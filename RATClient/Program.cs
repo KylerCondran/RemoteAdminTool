@@ -160,6 +160,7 @@ namespace RATClient
             Console.WriteLine("PROCESSES      List Running Processes");
             Console.WriteLine("RETRIEVE       Download A File From The Server");
             Console.WriteLine("RUN            Run A Program");
+            Console.WriteLine("SCREENSHOT     Return A Screenshot From The Server");
             Console.WriteLine("SEARCH         List The Contents Of A Directory");
             Console.WriteLine("SENDKEYS       Send Key Presses To The Server");
             Console.WriteLine("SERVICES       List Running Services");
