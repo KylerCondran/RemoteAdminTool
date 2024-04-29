@@ -117,7 +117,7 @@ namespace RATClient
                     c.Args = args;
                 }
                 NetworkStream nstream = sock.GetStream();
-                byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(c));
+                byte[] sendBytes = Encoding.Unicode.GetBytes(SerializeToXml(c));
                 nstream.Write(sendBytes, 0, sendBytes.Length);
                 nstream.Flush();
                 byte[] message = new byte[sock.ReceiveBufferSize + 1];
@@ -126,7 +126,7 @@ namespace RATClient
                 do
                 {
                     bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
-                    sb.Append(Encoding.ASCII.GetString(message, 0, bytesRead));
+                    sb.Append(Encoding.Unicode.GetString(message, 0, bytesRead));
                 } while (bytesRead == sock.ReceiveBufferSize);
                 if (sb.ToString() == string.Empty) return;
                 Response r = DeserializeFromXml<Response>(sb.ToString());

