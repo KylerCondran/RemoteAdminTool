@@ -38,6 +38,7 @@ THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. YOU MAY USE THIS
 | Services        | ✔       | List Running Services                  |
 | Shutdown        | ✔       | Shutdown The Computer                  |
 | Software        | ✔       | List Installed Software                |
+| Talk            | ✔       | Say A Phrase With Text To Speech       |
 | Taskkill        | ✔       | Kill A Running Process                 |
 | Tree            | ✔       | Return A Folder Structure              |
 
