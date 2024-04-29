@@ -74,7 +74,7 @@ namespace RATClient
                             break;
                         case "melt":
                             if (!ConnectCheck()) break;
-                            Console.WriteLine("Are You Sure You Want Delete The Server? This Cant Be Undone. Type \"Y\" To Confirm. Type \"N\" To Cancel.");
+                            Console.WriteLine("Are You Sure You Want Delete The Server? This Can Not Be Undone. Type \"Y\" To Confirm. Type \"N\" To Cancel.");
                             string confirm = Console.ReadLine();
                             if (confirm.ToLower() != "y") break;
                             SendCommand(CMDS);
