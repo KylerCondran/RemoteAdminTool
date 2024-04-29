@@ -16,27 +16,32 @@ THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. YOU MAY USE THIS
 
 ## Features
 
-| Feature         |         |
-|-----------------|---------|
-| Clipboard       | ✔       |
-| Delete          | ✔       |
-| Download        | ✔       |
-| Info            | ✔       |
-| Ipconfig        | ✔       |
-| Logoff          | ✔       |
-| Melt            | ✔       |
-| Message         | ✔       |
-| Netstat         | ✔       |
-| Ping            | ✔       |
-| Processes       | ✔       |
-| Restart         | ✔       |
-| Retrieve        | ✔       |
-| Run             | ✔       |
-| Screenshot      | ✔       |
-| Search          | ✔       |
-| Sendkeys        | ✔       |
-| Services        | ✔       |
-| Shutdown        | ✔       |
-| Software        | ✔       |
-| Taskkill        | ✔       |
-| Tree            | ✔       |
+| Feature         |         |                                        |
+|-----------------|---------|----------------------------------------|
+| Clipboard       | ✔       | Return ClipBoard Text If Present       |
+| Delete          | ✔       | Delete A File On The Computer          |
+| Download        | ✔       | Download A File To The Computer        |
+| Info            | ✔       | List Computer Information              |
+| Ipconfig        | ✔       | List Computer Network Information      |
+| Logoff          | ✔       | Log Off The Computer                   |
+| Melt            | ✔       | Delete The Server                      |
+| Message         | ✔       | Send A Message To The Computer         |
+| Netstat         | ✔       | List Active Computer Connections       |
+| Ping            | ✔       | Ping Another Computer                  |
+| Processes       | ✔       | List Running Processes                 |
+| Restart         | ✔       | Restart The Computer                   |
+| Retrieve        | ✔       | Download A File From The Computer      |
+| Run             | ✔       | Run A Program                          |
+| Screenshot      | ✔       | Return A Screenshot From The Computer  |
+| Search          | ✔       | List The Contents Of A Directory       |
+| Sendkeys        | ✔       | Send Key Presses To The Computer       |
+| Services        | ✔       | List Running Services                  |
+| Shutdown        | ✔       | Shutdown The Computer                  |
+| Software        | ✔       | List Installed Software                |
+| Taskkill        | ✔       | Kill A Running Process                 |
+| Tree            | ✔       | Return A Folder Structure              |
+
+## Copyright and License
+>The [MIT License](https://github.com/KylerCondran/RemoteAdminTool/blob/master/LICENSE)
+>
+>Copyright (c) 2024 Kyler Condran
