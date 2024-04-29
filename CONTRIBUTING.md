@@ -24,6 +24,7 @@
 - [x] ~~Text To Speech~~
 - [ ] More Administration Functions
 - [ ] Add/Remove Programs
+- [ ] Better Command Line Parser
 - [ ] Control Panel
 - [ ] List Open Windows
 - [ ] Update Server
