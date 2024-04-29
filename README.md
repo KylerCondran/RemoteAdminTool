@@ -41,6 +41,9 @@ THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. YOU MAY USE THIS
 | Taskkill        | ✔       | Kill A Running Process                 |
 | Tree            | ✔       | Return A Folder Structure              |
 
+## Contributing
+See our contributing guide at [CONTRIBUTING.md](../master/CONTRIBUTING.md).
+
 ## Copyright and License
 >The [MIT License](https://github.com/KylerCondran/RemoteAdminTool/blob/master/LICENSE)
 >
