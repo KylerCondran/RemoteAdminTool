@@ -21,7 +21,7 @@
 - [ ] FTP
 - [ ] Passwords
 - [ ] Internet Explorer
-- [ ] Text To Speech
+- [x] ~~Text To Speech~~
 - [ ] More Administration Functions
 - [ ] Add/Remove Programs
 - [ ] Control Panel
