@@ -14,6 +14,23 @@ Remote Admin Tool is a Command Line Interface Tool for administrating a network 
 
 THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. YOU MAY USE THIS SOFTWARE AT YOUR OWN RISK. THE USE OF THIS SOFTWARE IS THE COMPLETE RESPONSIBILITY OF THE END-USER. THE DEVELOPERS ASSUME NO LIABILITY AND ARE NOT RESPONSIBLE FOR ANY MISUSE OR DAMAGE CAUSED BY THIS PROGRAM.
 
+## Getting Started
+
+1. Download
+```
+git clone https://github.com/KylerCondran/RemoteAdminTool.git
+```
+2. Run The Server On Remote Computer
+   - Make Sure It Is Accessible With Port Forwarding And Firewalls
+ 
+3. Run The Client
+   
+4. Connect To The Server
+```
+connect [IPAddress]:[Port]
+```
+5. Run Some Commands
+
 ## Features
 
 | Feature         |         |                                        |
