@@ -298,16 +298,19 @@ namespace RATServer
             catch (Exception e) { r.Msg = e.Message; }
             return r;
         }
-        public static Response Talk(string Phrase)
+        public static Response Talk(string[] Phrase)
         {
             Response r = new Response { Type = "Message" };
             try
             {
+                string sentence = "";
+                foreach (string Word in Phrase) sentence += Word + " ";
+                sentence = sentence.Trim();
                 Process p = new Process();
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.FileName = "powershell.exe";
-                p.StartInfo.Arguments = $"-Command \"Add-Type -AssemblyName System.Speech;$speechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speechSynthesizer.Speak('" + Phrase + "')";
+                p.StartInfo.Arguments = $"-Command \"Add-Type -AssemblyName System.Speech;$speechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speechSynthesizer.Speak('" + sentence + "')";
                 p.Start();              
                 p.WaitForExit();
                 r.Msg = "Talk Success";
