@@ -102,13 +102,10 @@ namespace RATClient
                     sock = new TcpClient();
                     sock.Connect(ip, port);
                     serverID = ip.ToString() + ":" + port.ToString();
-                    Console.WriteLine("Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
+                    Console.WriteLine("Client: Connected To: " + serverID + ".");
                 }
                 catch { Console.WriteLine("Error: The Server Is Unreachable."); }
-            } else
-            {
-                Console.WriteLine("Already Connected - Disconnect First.");
-            }
+            } else Console.WriteLine("Already Connected - Disconnect First.");
         }
         static void SendCommand(string[] CMDS)
         {
