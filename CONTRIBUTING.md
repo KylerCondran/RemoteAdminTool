@@ -6,7 +6,7 @@
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new pull request (PR)
 
-# TODO
+# TO DO
 
 - [ ] Remote Desktop
 - [ ] Registry (Add/Delete/Modify)
