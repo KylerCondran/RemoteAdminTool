@@ -58,6 +58,7 @@ connect [IPAddress]:[Port]
 | Talk            | ✔       | Say A Phrase With Text To Speech       |
 | Taskkill        | ✔       | Kill A Running Process                 |
 | Tree            | ✔       | Return A Folder Structure              |
+| Uptime          | ✔       | Return The Server Uptime               |
 
 ## Contributing
 See our contributing guide at [CONTRIBUTING.md](../master/CONTRIBUTING.md).
