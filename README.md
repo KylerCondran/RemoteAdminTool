@@ -1,6 +1,6 @@
 # Remote Admin Tool
 
-Remote Admin Tool is a Command Line Interface Tool for administrating a network over a TCP connection. Extremely simple and modular containing over 26 functions.
+Remote Admin Tool is a Command Line Interface Tool for administrating a network over a TCP connection. Extremely simple and modular containing over 30 commands.
 
 <img src="https://repository-images.githubusercontent.com/791082094/8c71b6f8-d4b7-482b-9734-a80d77f09ded" title="Remote Admin Tool">
 
